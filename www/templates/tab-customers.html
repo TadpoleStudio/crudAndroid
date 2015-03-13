@@ -1,0 +1,37 @@
+<ion-view title="Customers">
+    <ion-nav-buttons side="right">
+        <a class="button" href="#/tab/customer/mgr/new">Create</a>
+    </ion-nav-buttons>
+    <ion-content>
+        <div class="item item-input-inset">
+            <label class="item-input-wrapper">
+                <i class="icon ion-search placeholder-icon"></i>
+                <input type="text" placeholder="Name or Phone Number">
+            </label>
+            <a class="button button-small">Search</a>
+        </div>
+        <ion-list>
+            <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="customer in customers"
+                      type="item-text-wrap" href="#/tab/customer/{{customer.id}}">
+                <img ng-src="{{customer.avatar}}">
+
+                <h2>{{customer.name}}</h2>
+
+                <p>{{customer.sex}}, {{customer.phone}}, {{customer.address}}</p>
+                <i class="icon ion-chevron-right icon-accessory"></i>
+                <ion-option-button class="button-calm" ng-click="remove(customer)">
+                    Text
+                </ion-option-button>
+                <ion-option-button class="button-balanced" ng-click="remove(customer)">
+                    Call
+                </ion-option-button>
+                <ion-option-button class="button-royal" ng-click="edit(customer.id)">
+                    Edit
+                </ion-option-button>
+                <ion-option-button class="button-assertive" ng-click="remove(customer)">
+                    Delete
+                </ion-option-button>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>

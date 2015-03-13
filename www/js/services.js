@@ -8,12 +8,12 @@ angular.module('starter.services', [])
             id: 0,
             name: 'Ben Sparrow',
             lastText: 'You on your way?',
-            face: 'https://pbs.twimg.com/profile_images/514549811765211136/9SgAuHeY.png'
+            face: 'http://192.168.146.1:8080/crud/public/avatar.jpg'
         }, {
             id: 1,
             name: 'Max Lynx',
             lastText: 'Hey, it\'s me',
-            face: 'https://avatars3.githubusercontent.com/u/11214?v=3&s=460'
+            face: 'http://192.168.146.1:8080/crud/public/a2.png'
         }, {
             id: 2,
             name: 'Andrew Jostlin',
@@ -50,18 +50,52 @@ angular.module('starter.services', [])
     })
     .factory('CustomerService', function ($http) {
         return {
-            showCustomer: function ($scope) {
+            get: function ($scope, customerId) {
                 $http({
                     method: 'GET',
-                    url: 'http://192.168.146.1:8080/crud/rest/customer/1'
+                    url: 'http://192.168.146.1:8080/crud/rest/customer/' + customerId
                 }).success(function (response, status, headers, config) {
 
                     $scope.customer = response;
 
+                    console.debug(response);
                 }).error(function (response, status, headers, config) {
 
                     $scope.customer = null;
                 });
+            },
+
+            loadAllCustomers: function ($scope) {
+
+                $http({
+                    method: 'GET',
+                    url: 'http://192.168.146.1:8080/crud/rest/customer/all'
+                }).success(function (response, status, headers, config) {
+
+                    $scope.customers = response;
+                    console.debug($scope.customers);
+
+                }).error(function (response, status, headers, config) {
+
+                    $scope.customers = null;
+                });
+
+            },
+
+            save : function ($scope, customer) {
+                $http({
+                    method: 'GET',
+                    url: 'http://192.168.146.1:8080/crud/rest/customer/save/' + customer
+                }).success(function (response, status, headers, config) {
+
+                    $scope.customer = response;
+                    console.debug($scope.customer);
+
+                }).error(function (response, status, headers, config) {
+
+                    $scope.customers = null;
+                });
+
             }
         }
     });
