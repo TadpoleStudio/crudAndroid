@@ -21,13 +21,21 @@ angular.module('starter.controllers', [])
         $scope.customer = null;
         CustomerService.showCustomer($scope);
     })
-    .controller('ContentController', function ($scope, $ionicSideMenuDelegate) {
-        $scope.toggleLeft = function () {
-            $ionicSideMenuDelegate.toggleLeft();
-        };
-    })
-    .controller('CustomerController', function () {
 
+    .controller('CustomerController', function ($scope, CustomerService) {
+
+        $scope.customers = null;
+        $scope.currentCustomer = null;
+        CustomerService.loadAllCustomers($scope);
+
+        $scope.remove = function() {
+            alert('todo');
+        }
+    })
+
+    .controller('CustomerDetailController', function ($scope, $stateParams, CustomerService) {
+        $scope.customer = null;
+        CustomerService.get($scope, $stateParams.customerId);
     })
     .controller('MyCtrl', function ($scope, $ionicHistory) {
         $scope.myGoBack = function () {
