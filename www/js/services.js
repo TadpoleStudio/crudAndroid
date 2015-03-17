@@ -58,7 +58,6 @@ angular.module('starter.services', [])
 
                     $scope.customer = response;
 
-                    console.debug(response);
                 }).error(function (response, status, headers, config) {
 
                     $scope.customer = null;
@@ -71,25 +70,37 @@ angular.module('starter.services', [])
                     method: 'GET',
                     url: 'http://192.168.146.1:8080/crud/rest/customer/all'
                 }).success(function (response, status, headers, config) {
-
                     $scope.customers = response;
-                    console.debug($scope.customers);
 
                 }).error(function (response, status, headers, config) {
-
                     $scope.customers = null;
                 });
 
             },
-
-            save : function ($scope, customer) {
+            searchCustomers: function ($scope, inputValue) {
                 $http({
                     method: 'GET',
-                    url: 'http://192.168.146.1:8080/crud/rest/customer/save/' + customer
+                    url: 'http://192.168.146.1:8080/crud/rest/customer/search?queryParam=' + inputValue
+                }).success(function (response, status, headers, config) {
+                    $scope.customers = response;
+
+                }).error(function (response, status, headers, config) {
+                    $scope.customers = null;
+                });
+
+            },
+            save: function ($scope, $state, customerId) {
+                $http({
+                    method: 'POST',
+                    url: 'http://192.168.146.1:8080/crud/rest/customer/save/',
+                    data: $scope.customer
                 }).success(function (response, status, headers, config) {
 
                     $scope.customer = response;
-                    console.debug($scope.customer);
+
+                    $scope.$emit('customer_saved_event', {type: customerId, customer: response});
+
+                    $state.go('tab.customer');
 
                 }).error(function (response, status, headers, config) {
 

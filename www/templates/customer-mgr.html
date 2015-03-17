@@ -7,16 +7,20 @@
 <ion-view view-title="Manage Customer">
     <ion-content class="padding">
         <div class="list">
-            <label class="item item-input">
-                <input type="text" placeholder="First Name" ng-model="customer.name"/>
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">Name</span>
+                <input type="text" placeholder="Name of the customer" ng-model="customer.name">
             </label>
-            <label class="item item-input">
-                <input type="text" placeholder="Last Name">
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">Phone</span>
+                <input type="text" placeholder="Mobile phone number" ng-model="customer.phone">
             </label>
-            <label class="item item-input">
-                <textarea placeholder="Comments"></textarea>
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">Address</span>
+                <input type="text" placeholder="地址" ng-model="customer.address">
             </label>
         </div>
-        <button class="button" ng-click="saveOrUpdateCustomer()">Submit</button>
+        <button class="button button-bar button-positive" ng-click="uploadCustomerPicture()"><p class="text-center">Upload Avatar</p></button>
+        <button class="button button-bar button-positive" ng-click="saveOrUpdateCustomer()"><p class="text-center">Submit</p></button>
     </ion-content>
 </ion-view>
