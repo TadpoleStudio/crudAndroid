@@ -21,8 +21,8 @@ angular.module('starter.controllers', [])
         $scope.customer = null;
         CustomerService.showCustomer($scope);
     })
-    .controller('CustomerMgrController', function ($scope, CustomerService, $stateParams, $state, $cordovaFile) {
-
+    .controller('CustomerMgrController', function ($scope, CustomerService, $stateParams, $state) {
+//, $cordovaFile
         $scope.customer = null;
         var customerId = $stateParams.customerId;
         if (customerId == 'new') {
@@ -36,22 +36,26 @@ angular.module('starter.controllers', [])
             CustomerService.save($scope, $state, customerId);
         };
 
-        //$scope.uploadCustomerPicture = function () {
-        //    var options = {
-        //        fileKey: "avatar",
-        //        fileName: "image.png",
-        //        chunkedMode: false,
-        //        mimeType: "image/png"
-        //    };
-        //    $cordovaFile.uploadFile("http://192.168.146.1:8080/crud/customer/fileUpload", "/android_asset/www/img/ionic.png", options).then(function (result) {
-        //        console.log("SUCCESS: " + JSON.stringify(result.response));
-        //    }, function (err) {
-        //        console.log("ERROR: " + JSON.stringify(err));
-        //    }, function (progress) {
-        //        // constant progress updates
-        //    });
-        //
-        //};
+        $scope.uploadCustomerPicture = function () {
+
+            var formData = new FormData();
+            formData.append('file', 'f' );
+            var options = {
+                fileKey: "avatar",
+                fileName: "image.png",
+                chunkedMode: false,
+                mimeType: "image/png"
+            };
+            console.debug("t");
+            //$cordovaFile.uploadFile("http://192.168.146.1:8080/crud/rest/customer/fileUpload", "/android_asset/www/img/ionic.png", options).then(function (result) {
+            //    console.log("SUCCESS: " + JSON.stringify(result.response));
+            //}, function (err) {
+            //    console.log("ERROR: " + JSON.stringify(err));
+            //}, function (progress) {
+            //    // constant progress updates
+            //});
+
+        };
     })
     .controller('CustomerController', function ($scope, $state, $rootScope, CustomerService) {
 
