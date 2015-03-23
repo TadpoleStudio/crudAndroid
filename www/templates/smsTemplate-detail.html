@@ -1,0 +1,21 @@
+<!--
+  This template loads for the 'tab.friend-detail' state (app.js)
+  'friend' is a $scope variable created in the FriendsCtrl controller (controllers.js)
+  The FriendsCtrl pulls data from the Friends service (service.js)
+  The Friends service returns an array of friend data
+-->
+<ion-view view-title="{{smsTemplate.name}}">
+    <ion-content class="padding">
+        <div class="list">
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">Name</span>
+                <input type="text" placeholder="Name of the Template" ng-model="smsTemplate.name">
+            </label>
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">Content</span>
+                <input type="textarea" placeholder="Content of the Template" ng-model="smsTemplate.content">
+            </label>
+        </div>
+        <button class="button button-bar button-positive" ng-click="saveOrUpdateCustomer()"><p class="text-center">Submit</p></button>
+    </ion-content>
+</ion-view>

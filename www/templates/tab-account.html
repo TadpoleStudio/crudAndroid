@@ -1,10 +1,12 @@
 <ion-view view-title="Account">
-  <ion-content>
-    <ion-list>
-    <ion-toggle  ng-model="settings.enableFriends">
-        Enable Friends
-    </ion-toggle>
-    </ion-list>
-      <p> {{customer.id}}, {{customer.name}}</p>
-  </ion-content>
+    <ion-nav-buttons side="right">
+        <a class="button button-positive" ng-click="logout()">Logout</a>
+    </ion-nav-buttons>
+    <ion-content>
+        <ion-list>
+            <ion-toggle ng-model="settings.enableFriends">
+                Enable Friends
+            </ion-toggle>
+        </ion-list>
+    </ion-content>
 </ion-view>

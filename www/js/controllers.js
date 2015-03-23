@@ -1,25 +1,37 @@
 angular.module('starter.controllers', [])
 
-    .controller('DashCtrl', function ($scope) {
+    .controller('DashCtrl', function ($scope, $state) {
+        $scope.signIn = function (user) {
+            $state.go('tab.customer');
+            $scope.$emit('customer_list_refresh');
+        };
     })
 
-    .controller('ChatsCtrl', function ($scope, Chats) {
-        $scope.chats = Chats.all();
+    .controller('SmsCtrl', function ($scope, SmsTemplate, $rootScope) {
+        $scope.smsTemplateList = null;
         $scope.remove = function (chat) {
-            Chats.remove(chat);
-        }
+            SmsTemplate.remove(chat);
+        };
+        $rootScope.$on('sms_template_list_loaded', function(event, data) {
+            console.debug(data.smsTemplateList);
+            $scope.smsTemplateList = data.smsTemplateList;
+        });
+
+        SmsTemplate.loadAll($scope);
     })
 
-    .controller('ChatDetailCtrl', function ($scope, $stateParams, Chats) {
-        $scope.chat = Chats.get($stateParams.chatId);
+    .controller('SmsTemplateDetailCtrl', function ($scope, $stateParams, SmsTemplate) {
+        $scope.smsTemplate = null;
     })
 
-    .controller('AccountCtrl', function ($scope, CustomerService) {
+    .controller('AccountCtrl', function ($scope, $state) {
         $scope.settings = {
             enableFriends: true
         };
-        $scope.customer = null;
-        CustomerService.showCustomer($scope);
+
+        $scope.logout = function () {
+            $state.go('sign-in');
+        }
     })
     .controller('CustomerMgrController', function ($scope, CustomerService, $stateParams, $state) {
 //, $cordovaFile
@@ -39,7 +51,7 @@ angular.module('starter.controllers', [])
         $scope.uploadCustomerPicture = function () {
 
             var formData = new FormData();
-            formData.append('file', 'f' );
+            formData.append('file', 'f');
             var options = {
                 fileKey: "avatar",
                 fileName: "image.png",
@@ -61,7 +73,11 @@ angular.module('starter.controllers', [])
 
         $scope.customers = null;
 
-        CustomerService.loadAllCustomers($scope);
+        $rootScope.$on('customer_list_refresh', function () {
+            CustomerService.loadAllCustomers($scope);
+        });
+
+        $scope.$emit('customer_list_refresh');
 
         $rootScope.$on('customer_saved_event', function (event, data) {
 

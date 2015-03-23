@@ -28,7 +28,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
         // Set up the various states which the app can be in.
         // Each state's controller can be found in controllers.js
         $stateProvider
-
+            .state('sign-in', {
+                url: '/sign-in',
+                templateUrl: 'templates/sign-in.html',
+                controller: 'DashCtrl'
+            })
+            .state('forgotpassword', {
+                url: '/forgot-password',
+                templateUrl: 'templates/forgot-password.html'
+            })
             // setup an abstract state for the tabs directive
             .state('tab', {
                 url: "/tab",
@@ -38,15 +46,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 
             // Each tab has its own nav history stack:
 
-            .state('tab.dash', {
-                url: '/dash',
-                views: {
-                    'tab-dash': {
-                        templateUrl: 'templates/tab-dash.html',
-                        controller: 'DashCtrl'
-                    }
-                }
-            })
             .state('tab.customer', {
                 url: '/customer',
                 views: {
@@ -56,21 +55,21 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
                     }
                 }
             })
-            .state('tab.chats', {
-                url: '/chats',
+            .state('tab.sms', {
+                url: '/sms',
                 views: {
                     'tab-chats': {
-                        templateUrl: 'templates/tab-chats.html',
-                        controller: 'ChatsCtrl'
+                        templateUrl: 'templates/tab-sms.html',
+                        controller: 'SmsCtrl'
                     }
                 }
             })
-            .state('tab.chat-detail', {
-                url: '/chats/:chatId',
+            .state('tab.sms-template-detail', {
+                url: '/smsTemplate/:smsTemplateId',
                 views: {
                     'tab-chats': {
-                        templateUrl: 'templates/chat-detail.html',
-                        controller: 'ChatDetailCtrl'
+                        templateUrl: 'templates/smsTemplate-detail.html',
+                        controller: 'SmsTemplateDetailCtrl'
                     }
                 }
             })
@@ -105,6 +104,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
             });
 
         // if none of the above states are matched, use this as the fallback
-        $urlRouterProvider.otherwise('/tab/dash');
+        $urlRouterProvider.otherwise('/sign-in');
         $ionicConfigProvider.tabs.position('bottom');
     });
