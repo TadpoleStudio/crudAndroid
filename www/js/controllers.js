@@ -13,15 +13,24 @@ angular.module('starter.controllers', [])
             SmsTemplate.remove(chat);
         };
         $rootScope.$on('sms_template_list_loaded', function(event, data) {
-            console.debug(data.smsTemplateList);
             $scope.smsTemplateList = data.smsTemplateList;
         });
 
         SmsTemplate.loadAll($scope);
     })
 
-    .controller('SmsTemplateDetailCtrl', function ($scope, $stateParams, SmsTemplate) {
-        $scope.smsTemplate = null;
+    .controller('SmsTemplateDetailCtrl', function ($scope, $stateParams, $ionicHistory) {
+
+        var smsTemplateId = $stateParams.smsTemplateId;
+        console.debug(smsTemplateId);
+
+        $scope.smsTemplate = new SmsTemplate();
+        $scope.smsTemplate.name = 'Test';
+        $scope.smsTemplate.content = 'Test';
+
+        $scope.goBackToList = function() {
+            $ionicHistory.goBack();
+        };
     })
 
     .controller('AccountCtrl', function ($scope, $state) {

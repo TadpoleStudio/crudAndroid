@@ -58,20 +58,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
             .state('tab.sms', {
                 url: '/sms',
                 views: {
-                    'tab-chats': {
+                    'tab-sms-list': {
                         templateUrl: 'templates/tab-sms.html',
                         controller: 'SmsCtrl'
                     }
                 }
             })
-            .state('tab.sms-template-detail', {
-                url: '/smsTemplate/:smsTemplateId',
-                views: {
-                    'tab-chats': {
+            .state('sms-template-detail', {
+                url: '/sms/:smsTemplateId',
                         templateUrl: 'templates/smsTemplate-detail.html',
                         controller: 'SmsTemplateDetailCtrl'
-                    }
-                }
             })
             .state('tab.customer-detail', {
                 url: '/customer/:customerId',

@@ -7,7 +7,6 @@ angular.module('starter.services', [])
                     url: 'http://192.168.146.1:8080/crud/rest/smsTemplate/all'
                 }).success(function (response, status, headers, config) {
 
-                    console.debug(response);
                     $scope.$emit('sms_template_list_loaded', {smsTemplateList: response});
 
                 }).error(function (response, status, headers, config) {
@@ -16,7 +15,7 @@ angular.module('starter.services', [])
                 });
             },
             remove: function (chat) {
-                chats.splice(chats.indexOf(chat), 1);
+
             },
             get: function (chatId) {
                 for (var i = 0; i < chats.length; i++) {

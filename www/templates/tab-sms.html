@@ -1,17 +1,15 @@
 <ion-view view-title="SMS Template">
-    <ion-nav-buttons side="right">
-        <a class="button button-royal">Search</a>
-    </ion-nav-buttons>
-  <ion-content>
-    <ion-list>
-      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="smsTemplate in smsTemplateList" type="item-text-wrap" href="#/tab/smsTemplate/{{smsTemplate.id}}">
-        <h2>{{smsTemplate.name}}</h2>
-        <i class="icon ion-chevron-right icon-accessory"></i>
+    <ion-content>
+        <ion-list>
+            <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="smsTemplate in smsTemplateList"
+                      type="item-text-wrap" href="#/sms/{{smsTemplate.id}}">
+                <h2>{{smsTemplate.name}}</h2>
+                <i class="icon ion-chevron-right icon-accessory"></i>
 
-        <ion-option-button class="button-assertive" ng-click="remove(smsTemplate)">
-          Delete
-        </ion-option-button>
-      </ion-item>
-    </ion-list>
-  </ion-content>
+                <ion-option-button class="button-assertive" ng-click="remove(smsTemplate)">
+                    Delete
+                </ion-option-button>
+            </ion-item>
+        </ion-list>
+    </ion-content>
 </ion-view>
