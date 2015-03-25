@@ -1,8 +1,11 @@
 <ion-view view-title="SMS Template">
+    <ion-nav-buttons side="right">
+        <a class="button" href="#/sms/new">Create</a>
+    </ion-nav-buttons>
     <ion-content>
         <ion-list>
             <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="smsTemplate in smsTemplateList"
-                      type="item-text-wrap" href="#/sms/{{smsTemplate.id}}">
+                      type="item-text-wrap"  href="#/sms/{{smsTemplate.id}}" > <!--ng-click="gotoCreatePage(smsTemplate)"-->
                 <h2>{{smsTemplate.name}}</h2>
                 <i class="icon ion-chevron-right icon-accessory"></i>
 

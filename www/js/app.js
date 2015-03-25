@@ -45,7 +45,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
             })
 
             // Each tab has its own nav history stack:
-
             .state('tab.customer', {
                 url: '/customer',
                 views: {
@@ -69,6 +68,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
                         templateUrl: 'templates/smsTemplate-detail.html',
                         controller: 'SmsTemplateDetailCtrl'
             })
+            .state('sms-load-send-single-sms-page', {
+                url: '/loadSendSingleSmsPage',
+                templateUrl: 'templates/send-single-sms.html',
+                controller: 'SmsTemplateDetailCtrl'
+            })
+
             .state('tab.customer-detail', {
                 url: '/customer/:customerId',
                 views: {

@@ -7,29 +7,60 @@ angular.module('starter.controllers', [])
         };
     })
 
-    .controller('SmsCtrl', function ($scope, SmsTemplate, $rootScope) {
-        $scope.smsTemplateList = null;
-        $scope.remove = function (chat) {
-            SmsTemplate.remove(chat);
+    .controller('SmsCtrl', function ($scope, SmsTemplateService, $rootScope, $state) {
+        $scope.smsTemplateList = [];
+        $scope.remove = function (smsTemplate) {
+            SmsTemplateService.remove(smsTemplate, $scope);
         };
-        $rootScope.$on('sms_template_list_loaded', function(event, data) {
+        $rootScope.$on('sms_template_list_loaded', function (event, data) {
             $scope.smsTemplateList = data.smsTemplateList;
         });
 
-        SmsTemplate.loadAll($scope);
+        $rootScope.$on('smsTemplate_delete_event', function (event, data) {
+            var smsTemplateId = data.smsTemplateId;
+            for (var i = 0; i < $scope.smsTemplateList.length; i++) {
+                if ($scope.smsTemplateList[i].id === parseInt(smsTemplateId)) {
+                    $scope.smsTemplateList.splice(i,1);
+                }
+            }
+        });
+
+        $rootScope.$on('smsTemplate_saved_event', function (event, data) {
+
+            var smsTemplateId = data.type;
+            var smsTemplate = data.smsTemplate;
+
+            if (smsTemplateId && smsTemplateId == 'new') {
+                $scope.smsTemplateList.push(smsTemplate);
+            } else {
+                for (var i = 0; i < $scope.smsTemplateList.length; i++) {
+                    if ($scope.smsTemplateList[i].id === parseInt(smsTemplateId)) {
+                        $scope.smsTemplateList[i] = smsTemplate;
+                    }
+                }
+            }
+        });
+
+        SmsTemplateService.loadAll($scope);
     })
 
-    .controller('SmsTemplateDetailCtrl', function ($scope, $stateParams, $ionicHistory) {
+    .controller('SmsTemplateDetailCtrl', function ($scope, $stateParams, $ionicHistory, $rootScope, SmsTemplateService, $state) {
 
         var smsTemplateId = $stateParams.smsTemplateId;
-        console.debug(smsTemplateId);
+        $scope.smsTemplate = null;
 
-        $scope.smsTemplate = new SmsTemplate();
-        $scope.smsTemplate.name = 'Test';
-        $scope.smsTemplate.content = 'Test';
-
-        $scope.goBackToList = function() {
+        if(smsTemplateId && smsTemplateId == 'new') {
+            $scope.smsTemplate = new SmsTemplate();
+        } else {
+            SmsTemplateService.loadSingleTemplate($scope, smsTemplateId);
+        }
+        $scope.goBackToList = function () {
             $ionicHistory.goBack();
+        };
+
+        $scope.saveOrUpdateSmsTemplate = function (smsTemplate) {
+            SmsTemplateService.save($scope, $state, smsTemplateId, smsTemplate);
+
         };
     })
 
