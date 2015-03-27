@@ -5,16 +5,26 @@
     </ion-nav-buttons>
     <ion-content class="padding">
         <div class="list">
-            <label class="item item-input item-stacked-label">
-                <span class="input-label">Name</span>
-                <input type="text" placeholder="Name of the Template" ng-model="smsTemplate.name">
+            <label class="item">
+                <span class="input-label">You can select a template</span>
+                <button class="button button-block button-calm" ng-click="goToTemplateList()">go to template list
+                </button>
             </label>
             <label class="item item-input item-stacked-label text">
-                <span class="input-label">Content</span>
-                <textarea placeholder="Content of the Template" rows="17" ng-model="smsTemplate.content"></textarea>
+                <div class="row">
+                    <div class="col-50">
+                        <span class="input-label">Text Sending</span>
+                    </div>
+                    <div class="col-50">
+                        <button class="button button-small" ng-click="clearText()">Clear text</button>
+                    </div>
+
+                </div>
+                <textarea placeholder="Content of the Template" rows="12" ng-model="smsTemplate.content"></textarea>
             </label>
 
         </div>
-            <button class="button button-block button-positive" ng-click="saveOrUpdateSmsTemplate(smsTemplate)"><p class="text-center">Send SMS</p></button>
+        <button class="button button-block button-positive" ng-click="sendSingleSms(selectedName)"><p
+                class="text-center">Send SMS</p></button>
     </ion-content>
 </ion-view>

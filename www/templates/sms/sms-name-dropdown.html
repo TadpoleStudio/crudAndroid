@@ -1,0 +1,14 @@
+<ion-view view-title="SMS Template List">
+    <ion-content>
+        <ion-list>
+            <ion-item class="item-remove-animate item-icon-right" ng-repeat="smsTemplate in smsTemplateList"
+                      type="item-text-wrap" ng-click="selectTemplate(smsTemplate)" >
+                <h2>{{smsTemplate.name}}</h2>
+                <i class="icon ion-chevron-right icon-accessory"></i>
+                <ion-option-button class="button-royal" href="#/sms/{{smsTemplate.id}}">
+                    Edit
+                </ion-option-button>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>

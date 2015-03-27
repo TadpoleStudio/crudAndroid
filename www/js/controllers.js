@@ -20,7 +20,7 @@ angular.module('starter.controllers', [])
             var smsTemplateId = data.smsTemplateId;
             for (var i = 0; i < $scope.smsTemplateList.length; i++) {
                 if ($scope.smsTemplateList[i].id === parseInt(smsTemplateId)) {
-                    $scope.smsTemplateList.splice(i,1);
+                    $scope.smsTemplateList.splice(i, 1);
                 }
             }
         });
@@ -49,7 +49,7 @@ angular.module('starter.controllers', [])
         var smsTemplateId = $stateParams.smsTemplateId;
         $scope.smsTemplate = null;
 
-        if(smsTemplateId && smsTemplateId == 'new') {
+        if (smsTemplateId && smsTemplateId == 'new') {
             $scope.smsTemplate = new SmsTemplate();
         } else {
             SmsTemplateService.loadSingleTemplate($scope, smsTemplateId);
@@ -62,6 +62,44 @@ angular.module('starter.controllers', [])
             SmsTemplateService.save($scope, $state, smsTemplateId, smsTemplate);
 
         };
+    })
+
+    .controller('SendSmsController', function ($scope, $stateParams, $ionicHistory, $rootScope, SmsTemplateService, $state) {
+        $scope.smsTemplate = {};
+
+        $scope.sendSingleSms = function (selectedName) {
+            alert("Messages was sent.");
+        };
+
+        $scope.goToTemplateList = function () {
+            $state.go('load-sms-template-names');
+        };
+
+        $rootScope.$on('sms-template-selected-event', function (event, data) {
+            var template = data.smsTemplate;
+            console.debug(template);
+            $scope.smsTemplate = template;
+        });
+
+        $scope.clearText = function() {
+            if($scope.smsTemplate && $scope.smsTemplate.content) {
+                $scope.smsTemplate.content = '';
+            }
+        };
+        SmsTemplateService.loadAll($scope);
+    })
+
+    .controller('SmsDropDownController', function ($scope, $stateParams, $ionicHistory, $rootScope, SmsTemplateService, $state) {
+        $scope.smsTemplateList = [];
+        $rootScope.$on('sms_template_list_loaded', function (event, data) {
+            $scope.smsTemplateList = data.smsTemplateList;
+        });
+        SmsTemplateService.loadAll($scope);
+
+        $scope.selectTemplate = function (template) {
+            $rootScope.$emit('sms-template-selected-event', {smsTemplate: template});
+            $state.go('sms-load-send-single-sms-page');
+        }
     })
 
     .controller('AccountCtrl', function ($scope, $state) {
@@ -138,6 +176,10 @@ angular.module('starter.controllers', [])
 
         $scope.remove = function () {
             alert('todo');
+        };
+
+        $scope.loadSentTextPage = function(customer) {
+            $state.go('sms-load-send-single-sms-page');
         };
 
         $scope.edit = function (customerId) {

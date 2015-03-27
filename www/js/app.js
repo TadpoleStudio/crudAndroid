@@ -71,7 +71,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
             .state('sms-load-send-single-sms-page', {
                 url: '/loadSendSingleSmsPage',
                 templateUrl: 'templates/send-single-sms.html',
-                controller: 'SmsTemplateDetailCtrl'
+                controller: 'SendSmsController'
+            })
+            .state('load-sms-template-names', {
+                url: '/loadSmsTemplateNames',
+                templateUrl: 'templates/sms/sms-name-dropdown.html',
+                controller: 'SmsDropDownController'
             })
 
             .state('tab.customer-detail', {
