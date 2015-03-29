@@ -1,4 +1,5 @@
 angular.module('starter.controllers', [])
+    .constant('serverRoot', 'http://loters.vicp.cc/crud/rest')
 
     .controller('DashCtrl', function ($scope, $state) {
         $scope.signIn = function (user) {

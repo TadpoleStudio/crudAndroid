@@ -4,7 +4,7 @@ angular.module('starter.services', [])
         return {
             loadAll: function ($scope) {
                 $http({
-                    url: 'http://192.168.146.1:8080/crud/rest/smsTemplate/all'
+                    url: AppConfiguration.serverRootBase + '/smsTemplate/all'
                 }).success(function (response, status, headers, config) {
 
                     $scope.$emit('sms_template_list_loaded', {smsTemplateList: response});
@@ -17,7 +17,7 @@ angular.module('starter.services', [])
 
             loadSingleTemplate: function($scope, smsTemplateId) {
                 $http({
-                    url: 'http://192.168.146.1:8080/crud/rest/smsTemplate/'+ smsTemplateId
+                    url: AppConfiguration.serverRootBase + '/smsTemplate/'+ smsTemplateId
                 }).success(function (response, status, headers, config) {
 
                    // $scope.$emit('sms_template_list_loaded', {smsTemplateList: response});
@@ -33,7 +33,7 @@ angular.module('starter.services', [])
                 var smsTemplateId = smsTemplate.id;
                 $http({
                     method: 'POST',
-                    url: 'http://192.168.146.1:8080/crud/rest/smsTemplate/delete/' + smsTemplateId
+                    url: AppConfiguration.serverRootBase + '/smsTemplate/delete/' + smsTemplateId
                 }).success(function (response, status, headers, config) {
 
                     $scope.$emit('smsTemplate_delete_event', {smsTemplateId: smsTemplateId});
@@ -54,7 +54,7 @@ angular.module('starter.services', [])
 
                 $http({
                     method: 'POST',
-                    url: 'http://192.168.146.1:8080/crud/rest/smsTemplate/save/',
+                    url: AppConfiguration.serverRootBase + '/smsTemplate/save/',
                     data: smsTemplate
                 }).success(function (response, status, headers, config) {
 
@@ -73,7 +73,7 @@ angular.module('starter.services', [])
             get: function ($scope, customerId) {
                 $http({
                     method: 'GET',
-                    url: 'http://192.168.146.1:8080/crud/rest/customer/' + customerId
+                    url: 'http://loters.vicp.cc/crud/rest/customer/' + customerId
                 }).success(function (response, status, headers, config) {
 
                     $scope.customer = response;
@@ -88,7 +88,7 @@ angular.module('starter.services', [])
 
                 $http({
                     method: 'GET',
-                    url: 'http://192.168.146.1:8080/crud/rest/customer/all'
+                    url:  'http://loters.vicp.cc/crud/rest/customer/all'
                 }).success(function (response, status, headers, config) {
                     $scope.customers = response;
 
@@ -100,7 +100,7 @@ angular.module('starter.services', [])
             searchCustomers: function ($scope, inputValue) {
                 $http({
                     method: 'GET',
-                    url: 'http://192.168.146.1:8080/crud/rest/customer/search?queryParam=' + inputValue
+                    url: AppConfiguration.serverRootBase + '/customer/search?queryParam=' + inputValue
                 }).success(function (response, status, headers, config) {
                     $scope.customers = response;
 
@@ -112,7 +112,7 @@ angular.module('starter.services', [])
             save: function ($scope, $state, customerId) {
                 $http({
                     method: 'POST',
-                    url: 'http://192.168.146.1:8080/crud/rest/customer/save/',
+                    url: AppConfiguration.serverRootBase + '/customer/save/',
                     data: $scope.customer
                 }).success(function (response, status, headers, config) {
 
