@@ -1,10 +1,9 @@
 angular.module('starter.services', [])
-
-    .factory('SmsTemplateService', function ($http) {
+    .factory('SmsTemplateService', function ($http, basicURL) {
         return {
             loadAll: function ($scope) {
                 $http({
-                    url: AppConfiguration.serverRootBase + '/smsTemplate/all'
+                    url: basicURL + 'smsTemplate/all'
                 }).success(function (response, status, headers, config) {
 
                     $scope.$emit('sms_template_list_loaded', {smsTemplateList: response});
@@ -15,17 +14,17 @@ angular.module('starter.services', [])
                 });
             },
 
-            loadSingleTemplate: function($scope, smsTemplateId) {
+            loadSingleTemplate: function ($scope, smsTemplateId) {
                 $http({
-                    url: AppConfiguration.serverRootBase + '/smsTemplate/'+ smsTemplateId
+                    url: basicURL + 'smsTemplate/' + smsTemplateId
                 }).success(function (response, status, headers, config) {
 
-                   // $scope.$emit('sms_template_list_loaded', {smsTemplateList: response});
+                    // $scope.$emit('sms_template_list_loaded', {smsTemplateList: response});
                     $scope.smsTemplate = response;
 
                 }).error(function (response, status, headers, config) {
 
-                   alert(response);
+                    alert(response);
                 });
             },
             remove: function (smsTemplate, $scope) {
@@ -33,7 +32,7 @@ angular.module('starter.services', [])
                 var smsTemplateId = smsTemplate.id;
                 $http({
                     method: 'POST',
-                    url: AppConfiguration.serverRootBase + '/smsTemplate/delete/' + smsTemplateId
+                    url: basicURL + 'smsTemplate/delete/' + smsTemplateId
                 }).success(function (response, status, headers, config) {
 
                     $scope.$emit('smsTemplate_delete_event', {smsTemplateId: smsTemplateId});
@@ -54,7 +53,7 @@ angular.module('starter.services', [])
 
                 $http({
                     method: 'POST',
-                    url: AppConfiguration.serverRootBase + '/smsTemplate/save/',
+                    url: basicURL + 'smsTemplate/save/',
                     data: smsTemplate
                 }).success(function (response, status, headers, config) {
 
@@ -68,12 +67,12 @@ angular.module('starter.services', [])
             }
         };
     })
-    .factory('CustomerService', function ($http) {
+    .factory('CustomerService', function ($http, basicURL) {
         return {
             get: function ($scope, customerId) {
                 $http({
                     method: 'GET',
-                    url: 'http://loters.vicp.cc/crud/rest/customer/' + customerId
+                    url: basicURL + 'customer/' + customerId
                 }).success(function (response, status, headers, config) {
 
                     $scope.customer = response;
@@ -88,7 +87,7 @@ angular.module('starter.services', [])
 
                 $http({
                     method: 'GET',
-                    url:  'http://loters.vicp.cc/crud/rest/customer/all'
+                    url: basicURL + 'customer/all'
                 }).success(function (response, status, headers, config) {
                     $scope.customers = response;
 
@@ -97,10 +96,16 @@ angular.module('starter.services', [])
                 });
 
             },
+
+            refreshCustomerList: function ($scope) {
+                this.loadAllCustomers($scope);
+                $scope.$broadcast('scroll.refreshComplete');
+
+            },
             searchCustomers: function ($scope, inputValue) {
                 $http({
                     method: 'GET',
-                    url: AppConfiguration.serverRootBase + '/customer/search?queryParam=' + inputValue
+                    url: basicURL + 'customer/search?queryParam=' + inputValue
                 }).success(function (response, status, headers, config) {
                     $scope.customers = response;
 
@@ -112,7 +117,7 @@ angular.module('starter.services', [])
             save: function ($scope, $state, customerId) {
                 $http({
                     method: 'POST',
-                    url: AppConfiguration.serverRootBase + '/customer/save/',
+                    url: basicURL + 'customer/save/',
                     data: $scope.customer
                 }).success(function (response, status, headers, config) {
 

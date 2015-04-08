@@ -1,5 +1,4 @@
 angular.module('starter.controllers', [])
-    .constant('serverRoot', 'http://loters.vicp.cc/crud/rest')
 
     .controller('DashCtrl', function ($scope, $state) {
         $scope.signIn = function (user) {
@@ -158,6 +157,10 @@ angular.module('starter.controllers', [])
 
         $scope.$emit('customer_list_refresh');
 
+        $scope.doRefresh = function() {
+            CustomerService.refreshCustomerList($scope);
+        };
+
         $rootScope.$on('customer_saved_event', function (event, data) {
 
             var type = data.type;
@@ -181,6 +184,10 @@ angular.module('starter.controllers', [])
 
         $scope.loadSentTextPage = function(customer) {
             $state.go('sms-load-send-single-sms-page');
+        };
+
+        $scope.callHim = function(customer) {
+          window.open('tel:' + customer.phone);
         };
 
         $scope.edit = function (customerId) {

@@ -10,6 +10,7 @@
             </label>
             <a class="button button-small" ng-click="searchCustomers(inputValue)">Search</a>
         </div>
+        <ion-refresher pulling-text='Pull to refresh' on-refresh="doRefresh()"></ion-refresher>
         <ion-list>
             <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="customer in customers"
                       type="item-text-wrap" href="#/tab/customer/{{customer.id}}">
@@ -22,7 +23,7 @@
                 <ion-option-button class="button-calm" ng-click="loadSentTextPage(customer)">
                     Text
                 </ion-option-button>
-                <ion-option-button class="button-balanced" ng-click="remove(customer)">
+                <ion-option-button class="button-balanced" ng-click="callHim(customer)">
                     Call
                 </ion-option-button>
                 <ion-option-button class="button-royal" ng-click="edit(customer.id)">
